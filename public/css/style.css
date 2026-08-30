@@ -1,0 +1,33 @@
+/* 1. IMPORT POPPINS FONT */
+@import url('https://googleapis.com');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.5;
+    min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 1rem;
+}
+
+p, ul, ol {
+    margin-bottom: 1rem;
+}
+
+img, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
