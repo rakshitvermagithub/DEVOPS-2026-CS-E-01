@@ -1,0 +1,27 @@
+{
+  "name": "devops-2026-cs-e-01",
+  "version": "1.0.0",
+  "description": "A URL shortener project is a software application that converts long, complex web addresses into short, unique, and manageable aliases. When a user clicks the short link, the system instantly redirects them to the original destination URL. It is a classic full-stack and system design project. ",
+  "homepage": "https://github.com/rakshitvermagithub/DEVOPS-2026-CS-E-01#readme",
+  "bugs": {
+    "url": "https://github.com/rakshitvermagithub/DEVOPS-2026-CS-E-01/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rakshitvermagithub/DEVOPS-2026-CS-E-01.git"
+  },
+  "license": "ISC",
+  "author": "Rakshit",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
