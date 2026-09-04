@@ -1,9 +1,15 @@
 const express = require('express')
 const app = express()
 const path = require('path')
+const { logger } = require('./middleware/logger')
 const PORT = process.env.PORT || 3500
 
+app.use(logger)
+
+app.use(express.json()) // let recievce and parse json data
+
 app.use('/', express.static(path.join(__dirname, '/public'))) // serve static files
+
 app.use('/', require('./routes/root')) // serve routes
 
 app.all('*', (req, res) => {
