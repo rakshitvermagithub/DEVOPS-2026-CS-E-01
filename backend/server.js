@@ -8,6 +8,9 @@ import connectDB from './src/config/mongo.config.js'
 const app = express()
 const PORT = process.env.PORT || 3500
 
+app.use(express.json())
+app.use(express.urlencoded({extended:true}))
+
 // app.use('/', express.static(path.join(__dirname, '/public'))) // serve static files
 // app.use('/', require('./routes/root')) // serve routes
 
