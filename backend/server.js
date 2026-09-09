@@ -4,6 +4,12 @@ import { nanoid } from 'nanoid'
 import dotenv from 'dotenv'
 dotenv.config('./.env')
 import connectDB from './src/config/mongo.config.js'
+import urlSchema from './src/models/shorturl.model.js'
+import { fileURLToPath } from 'url'
+import rootRoutes from './routes/root.js'
+
+const __filename = fileURLToPath(import.meta.url) // current file path
+const __dirname = path.dirname(__filename) // current directory path
 
 const app = express()
 const PORT = process.env.PORT || 3500
@@ -11,8 +17,20 @@ const PORT = process.env.PORT || 3500
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
-// app.use('/', express.static(path.join(__dirname, '/public'))) // serve static files
-// app.use('/', require('./routes/root')) // serve routes
+app.post('/api/create', (req, res) => {
+  const {url} = req.body;
+  const shortUrl = nanoid(7);
+  const newUrl = new urlSchema ({
+    full_url: url,
+    short_url: shortUrl,
+  });
+  console.log(newUrl)
+  newUrl.save();
+  res.send(shortUrl); 
+})
+
+app.use('/', express.static(path.join(__dirname, '/public'))) // serve static files
+app.use('/', rootRoutes) // serve routes
 
 app.all('*', (req, res) => {
   res.status(404)
