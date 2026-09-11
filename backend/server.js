@@ -18,15 +18,15 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
 app.post('/api/create', (req, res) => {
-  const {url} = req.body;
-  const shortUrl = nanoid(7);
-  const newUrl = new urlSchema ({
-    full_url: url,
-    short_url: shortUrl,
-  });
-  console.log(newUrl)
-  newUrl.save();
-  res.send(shortUrl); 
+	const {url} = req.body;
+	const shortUrl = nanoid(7);
+	const newUrl = new urlSchema ({
+		full_url: url,
+		short_url: shortUrl,
+	});
+	console.log(newUrl)
+	newUrl.save();
+	res.send(shortUrl); 
 })
 
 // Basic redirection route
