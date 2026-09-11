@@ -29,6 +29,18 @@ app.post('/api/create', (req, res) => {
   res.send(shortUrl); 
 })
 
+// Basic redirection route
+app.get("/:id", async (req, res) => {
+	const {id} = req.params;
+	const url = await urlSchema.findOne({short_url: id});
+	if(url) {
+		res.redirect(url.full_url);
+	}
+	else {
+		res.status(404).send("Not found");
+	}
+})
+
 app.use('/', express.static(path.join(__dirname, '/public'))) // serve static files
 app.use('/', rootRoutes) // serve routes
 
