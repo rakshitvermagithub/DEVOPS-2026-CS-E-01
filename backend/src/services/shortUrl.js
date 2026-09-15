@@ -1,4 +1,5 @@
-import { generateId } from "../utils/helper";
+import { generateId } from "../utils/helper.js";
+import urlSchema from "../models/shorturl.model.js"
 
 export const createShortUrlService = (longUrl) => { 
     const shortUrl = generateId(7);
