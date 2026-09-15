@@ -1,11 +1,10 @@
 import express from "express";
 const router = express.router();
-
-import { nanoid } from 'nanoid'
+import { generateId } from "../utils/helper.js"
 
 router.post("/", (req, res) => {
 	const {url} = req.body;
-	const shortUrl = nanoid(7);
+    const shortUrl = generateId(7);
 	const newUrl = new urlSchema ({
 		full_url: url,
 		short_url: shortUrl,
