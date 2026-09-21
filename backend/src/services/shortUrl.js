@@ -1,5 +1,5 @@
 import { generateId } from "../utils/helper.js";
-import saveShortUrlSchema from "../dao/shortUrl.js";
+import { saveShortUrlSchema } from "../dao/shortUrl.js";
 
 export const createShortUrlServiceWithoutUser = async (longUrl) => { 
     const shortUrl = await generateId(7);
