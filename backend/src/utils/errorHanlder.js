@@ -1,3 +1,21 @@
+// Global/General error handler
+// Recognized by express automatically due to its 4 parameters
+export const errorHandler = (err, req, res, next) => {
+  if (err instanceof AppError) {
+    return res.status(err.statusCode). json({
+      success: false,
+      message: err.message,
+    });
+  }
+
+  console.error(err);
+  res.status(500).json({
+    success: false,
+    message: "Internal Server Error",
+  });
+};
+
+
 // Class for custom errors
 export class AppError extends Error {
   statusCode;
@@ -30,19 +48,3 @@ export class BadRequestError extends AppError {
     super(message, 400);
   }
 }
-
-// Global/General error handler
-export const errorHandler = (err, req, res, next) => {
-  if (err instanceof AppError) {
-    return res.status(err.statusCode). json({
-      success: false,
-      message: err.message,
-    });
-  }
-
-  console.error(err);
-  res.status(500).json({
-    success: false,
-    message: "Internal Server Error",
-  });
-};

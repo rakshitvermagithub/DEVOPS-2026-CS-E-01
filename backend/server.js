@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url'
 import rootRoutes from './src/routes/root.js'
 import shortUrlRoute from "./src/routes/short_url.js";
 import { redirectFromShortUrl } from './src/controllers/shortUrl.js'
+import { errorHandler } from './src/utils/errorHanlder.js'
 
 const __filename = fileURLToPath(import.meta.url) // current file path
 const __dirname = path.dirname(__filename) // current directory path
@@ -24,6 +25,8 @@ app.get("/:id", redirectFromShortUrl);
 
 app.use('/', express.static(path.join(__dirname, '/public'))) // serve static files
 app.use('/', rootRoutes) // serve routes
+
+app.use(errorHandler)
 
 app.all('*', (req, res) => {
   res.status(404)
