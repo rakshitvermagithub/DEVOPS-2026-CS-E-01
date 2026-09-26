@@ -13,7 +13,12 @@ export const createShortUrlController = async (req, res, next) => {
 }
 
 export const redirectFromShortUrl = async (req, res) => {
-	const { id } = req.params;
-	const { full_url } = await getLongUrl(id);
-	res.redirect(full_url);
+	try {
+		const { id } = req.params;
+		const { full_url } = await getLongUrl(id);
+		if (!full_url) throw new Error("Short URL not found")
+		res.redirect(full_url);
+	} catch(err) {
+		next(err);
+	}
 }
