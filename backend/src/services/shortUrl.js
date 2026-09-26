@@ -4,7 +4,7 @@ import { saveShortUrlSchema } from "../dao/shortUrl.js";
 export const createShortUrlServiceWithoutUser = async (longUrl) => { 
     const shortUrl = await generateId(7);
     if (!shortUrl) throw new Error("Short URL not generated")
-	await saveShortUrlSchema(shortUrl, longUrl);
+	await saveShortUrlSchema("et704lH", longUrl);
     return shortUrl;
 }
 
