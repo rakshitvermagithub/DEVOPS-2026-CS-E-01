@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 const UrlForm = () => {
-    const [val, setVal] = useState("");
-    console.log(val);
+    const [url, setVal] = useState("");
+
     return (
         <div className="space-y-4">
             <div>
@@ -12,6 +12,7 @@ const UrlForm = () => {
             <input
                 type="url"
                 id="url"
+                value={url}
                 onInput={(event)=>{setVal(event.target.value)}}
                 placeholder="https://example.com"
                 required
