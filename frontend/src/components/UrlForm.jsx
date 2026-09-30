@@ -5,7 +5,7 @@ const UrlForm = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        const submitUrl = "http://localhost:3500/create/api"
+        const submitUrl = "http://localhost:3500/api/create"
         const reqObj = {
             method: "POST",
             headers: {
