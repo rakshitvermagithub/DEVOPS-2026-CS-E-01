@@ -1,10 +1,26 @@
 import { useState } from "react";
 
 const UrlForm = () => {
-    const [url, setVal] = useState("");
+    const [url, setVal] = useState("https://www.google.com");
+
+    const handleSubmit = async (event) => {
+        event.preventDefault()
+        const submitUrl = "http://localhost:3500/create/api"
+        const reqObj = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({longUrl: url})
+        }
+
+        const response = await fetch(submitUrl, reqObj);
+        const data = await response.json()
+        console.log(data)
+    }
 
     return (
-        <div className="space-y-4">
+        <form onSubmit={() => handleSubmit(event)} className="space-y-4">
             <div>
             <label htmlFor="url" className="block text-sm font-medium text-gray-700 mb-1">
                 Enter your URL
@@ -66,7 +82,7 @@ const UrlForm = () => {
                 </div>
             </div>
             )} */}
-        </div>
+        </form>
   )
 }
 
