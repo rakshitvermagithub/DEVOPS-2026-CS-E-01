@@ -1,7 +1,7 @@
-import axios from "axios"
+import axiosInstance from "../utils/axiosInstance";
 
 export const createShortUrl = async (url) => {
-    const submitUrl = "http://localhost:3500/api/create";
-    const { shortUrl } = await axios.post(submitUrl, { longUrl: url });
-    return shortUrl;
+    // data is a response object that contains the data returned from the server
+    const {data} = await axiosInstance.post("api/create", { longUrl: url });
+    return data.shortUrl;
 };
