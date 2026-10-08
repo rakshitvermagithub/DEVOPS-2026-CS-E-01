@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { createShortUrl } from "../api/shortUrl.api";
 
 const UrlForm = () => {
     const [url, setVal] = useState("https://www.google.com");
@@ -7,17 +8,7 @@ const UrlForm = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        const submitUrl = "http://localhost:3500/api/create";
-        const reqObj = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({longUrl: url})
-        }
-
-        const response = await fetch(submitUrl, reqObj);
-        const { shortUrl } = await response.json();
+        const shortUrl = await createShortUrl(url); // returns final short url as str
         setShortUrl(shortUrl);
         console.log("New generated short url", shortUrl);
     }
