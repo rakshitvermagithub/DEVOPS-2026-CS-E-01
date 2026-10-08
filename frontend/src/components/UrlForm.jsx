@@ -2,10 +2,12 @@ import { useState } from "react";
 
 const UrlForm = () => {
     const [url, setVal] = useState("https://www.google.com");
+    const [shortUrl, setShortUrl] = useState("");
+    const [copied, setCopied] = useState(false); 
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        const submitUrl = "http://localhost:3500/api/create"
+        const submitUrl = "http://localhost:3500/api/create";
         const reqObj = {
             method: "POST",
             headers: {
@@ -15,12 +17,24 @@ const UrlForm = () => {
         }
 
         const response = await fetch(submitUrl, reqObj);
-        const data = await response.json()
-        console.log(data)
+        const { shortUrl } = await response.json();
+        setShortUrl(shortUrl);
+        console.log("New generated short url", shortUrl);
+    }
+
+    const handleCopy=() => {
+        navigator.clipboard.writeText(shortUrl);
+        console.log("Copied short url", shortUrl);
+        setCopied(true);
+        
+        setTimeout(() => {
+            setCopied(false);
+        }, 3000);
     }
 
     return (
-        <form onSubmit={() => handleSubmit(event)} className="space-y-4">
+        <>
+        <form onSubmit={(event) => handleSubmit(event)} className="space-y-4">
             <div>
             <label htmlFor="url" className="block text-sm font-medium text-gray-700 mb-1">
                 Enter your URL
@@ -58,32 +72,31 @@ const UrlForm = () => {
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
             </div>
-            )}
-            {shortUrl && (
-            <div className="mt-6">
-                <h2 className="text-lg font-semibold mb-2">Your shortened URL:</h2>
-                <div className="flex items-center">
-                <input
-                    type="text"
-                    readOnly
-                    value={shortUrl}
-                    className="flex-1 p-2 border border-gray-300 rounded-l-md bg-gray-50"
-                />
-                <button
-                    onClick={handleCopy}
-                    className={`px-4 py-2 rounded-r-md transition-colors duration-200 ${
-                    copied 
-                        ? 'bg-green-500 text-white hover:bg-green-600' 
-                        : 'bg-gray-200 hover:bg-gray-300'
-                    }`}
-                >
-                    {copied ? 'Copied!' : 'Copy'}
-                </button>
-                </div>
-            </div>
             )} */}
         </form>
-  )
+        <div className="mt-6">
+            <h2 className="text-lg font-semibold mb-2">Your shortened URL:</h2>
+            <div className="flex items-center">
+            <input
+                type="text"
+                readOnly
+                value={shortUrl}
+                className="flex-1 p-2 border border-gray-300 rounded-l-md bg-gray-50"
+            />
+            <button
+                onClick={handleCopy}
+                className={`px-4 py-2 rounded-r-md transition-colors duration-200 ${
+                copied 
+                    ? 'bg-green-500 text-white hover:bg-green-600' 
+                    : 'bg-gray-200 hover:bg-gray-300'
+                }`}
+            >
+                {copied ? 'Copied!' : 'Copy'}
+            </button>
+            </div>
+        </div>
+        </>
+    )
 }
 
 export default UrlForm

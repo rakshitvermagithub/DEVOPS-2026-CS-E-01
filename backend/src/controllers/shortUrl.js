@@ -6,13 +6,13 @@ export const createShortUrlController = async (req, res, next) => {
 		const { longUrl } = req.body;
 		console.log(longUrl)
 		const shortUrl = await createShortUrlServiceWithoutUser(longUrl);
-		res.send(process.env.APP_URL + shortUrl); 
+		res.json({"shortUrl": shortUrl}); 
 	} catch (err) {
 		next(err)
 	}
 }
 
-export const redirectFromShortUrl = async (req, res) => {
+export const redirectFromShortUrl = async (req, res, next) => {
 	try {
 		const { id } = req.params;
 		const { full_url } = await getLongUrl(id);
