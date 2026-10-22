@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 dotenv.config('./.env')
 import connectDB from './src/config/mongo.config.js'
 import shortUrlRoute from "./src/routes/short_url.js";
+import authRoutes from "./src/routes/auth.routes.js";
 import { redirectFromShortUrl } from './src/controllers/shortUrl.js'
 import { errorHandler } from './src/utils/errorHanlder.js'
 import cors from 'cors'
@@ -16,6 +17,7 @@ const PORT = process.env.PORT || 3500
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
+app.use("/api/auth", authRoutes);
 app.use("/api/create", shortUrlRoute);
 
 // Basic redirection route
