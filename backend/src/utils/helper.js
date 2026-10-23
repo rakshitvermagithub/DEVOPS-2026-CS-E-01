@@ -1,5 +1,6 @@
 import jsonwebtoken from "jsonwebtoken";
 import { nanoid } from "nanoid";
+import { cookieOptions } from '../config/config.js'
 
 export const generateId = (len) => {
 	return nanoid(len);
