@@ -16,7 +16,10 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "dev": "nodemon server"
+    "dev": "nodemon server",
+    "stopdb": "sudo systemctl stop mongod",
+    "startdb": "sudo systemctl start mongod",
+    "statusdb": "systemctl status mongod"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
