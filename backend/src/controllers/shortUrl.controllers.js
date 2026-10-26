@@ -1,7 +1,7 @@
 import { createShortUrlServiceWithoutUser } from "../services/shortUrl.js";
 import { getLongUrl } from "../dao/shortUrl.js";
 
-export const createShortUrlController = async (req, res, next) => {
+export const createShortUrl = async (req, res, next) => {
 	try {	
 		const { longUrl } = req.body;
 		console.log(longUrl)
