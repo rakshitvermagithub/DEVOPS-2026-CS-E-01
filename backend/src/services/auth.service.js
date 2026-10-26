@@ -9,3 +9,12 @@ export const registerUser = async (name, email, password) => {
     const token = await signToken({userId: newUser._id});
     return token;
 }
+
+export const loginUser = async (email, password) => {
+    const user = await findUserByEmail(email);
+
+    if(!user || user.password !== password) throw new Error("Invalid credentials");
+
+    const token = await signToken({userId: user._id});
+    return token;
+}
