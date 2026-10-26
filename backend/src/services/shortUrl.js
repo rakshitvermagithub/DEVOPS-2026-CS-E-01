@@ -1,15 +1,18 @@
 import { generateId } from "../utils/helper.js";
 import { saveShortUrlSchema } from "../dao/shortUrl.js";
 
-export const createShortUrlServiceWithoutUser = async (longUrl) => { 
-    const shortUrl = await generateId(7);
+export const createShortUrlWithoutUser = async (longUrl) => { 
+    const shortUrl = generateId(7);
     if (!shortUrl) throw new Error("Short URL not generated")
 	await saveShortUrlSchema(shortUrl, longUrl);
     return (process.env.APP_URL + shortUrl);
 }
 
-export const createShortUrlServiceWithUser = async (longUrl, userId) => { 
-    const shortUrl = await generateId(7);
+export const createShortUrlWithUser = async (longUrl, userId, slug=null) => {
+    // slug is optional and is used to create custom short urls.
+    const shortUrl = slug || generateId(7);
+    const exists = await getCustomShortUrl(shortUrl);
+    if (exists) throw new Error("Custom short URL already exists");
 	await saveShortUrlSchema(shortUrl, longUrl, userId);
     return shortUrl;
 }

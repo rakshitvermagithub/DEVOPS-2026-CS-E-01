@@ -1,12 +1,17 @@
-import { createShortUrlServiceWithoutUser } from "../services/shortUrl.js";
+import { createShortUrlWithUser, createShortUrlWithoutUser } from "../services/shortUrl.js";
 import { getLongUrl } from "../dao/shortUrl.js";
 
 export const createShortUrl = async (req, res, next) => {
 	try {	
-		const { longUrl } = req.body;
-		console.log(longUrl)
-		const shortUrl = await createShortUrlServiceWithoutUser(longUrl);
-		res.json({"shortUrl": shortUrl}); 
+		const data = req.body;
+		let shortUrl
+		// If user is logged in
+		if(req.user){
+			shortUrl = await createShortUrlWithUser(data.url,req.user._id,data.slug)
+		} else {  
+			shortUrl = await createShortUrlWithoutUser(data.url)
+		}
+		res.status(200).json({shortUrl : process.env.APP_URL + shortUrl})
 	} catch (err) {
 		next(err)
 	}
