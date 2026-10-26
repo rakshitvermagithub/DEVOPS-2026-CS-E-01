@@ -5,7 +5,7 @@ export const createShortUrlWithoutUser = async (longUrl) => {
     const shortUrl = generateId(7);
     if (!shortUrl) throw new Error("Short URL not generated")
 	await saveShortUrlSchema(shortUrl, longUrl);
-    return (process.env.APP_URL + shortUrl);
+    return (shortUrl);
 }
 
 export const createShortUrlWithUser = async (longUrl, userId, slug=null) => {

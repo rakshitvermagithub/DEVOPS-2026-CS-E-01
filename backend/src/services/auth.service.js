@@ -1,5 +1,5 @@
-import { createUser, findUserByEmail } from "../dao/user.dao";
-import { signToken } from "../utils/helper";
+import { createUser, findUserByEmail } from "../dao/user.dao.js";
+import { signToken } from "../utils/helper.js";
 
 export const registerUser = async (name, email, password) => {
     const user = await findUserByEmail(email);
