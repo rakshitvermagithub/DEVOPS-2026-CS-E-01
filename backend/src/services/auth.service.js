@@ -6,8 +6,8 @@ export const registerUser = async (name, email, password) => {
     if(user) throw new Error("User already exists");
 
     const newUser = createUser(name, email, password);
-    const token = await signToken({userId: newUser._id});
-    return token;
+    const token = await signToken({userId: user._id});
+    return {token, user: newUser};
 }
 
 export const loginUser = async (email, password) => {
@@ -16,5 +16,5 @@ export const loginUser = async (email, password) => {
     if(!user || user.password !== password) throw new Error("Invalid credentials");
 
     const token = await signToken({userId: user._id});
-    return token;
+    return {token, user};
 }

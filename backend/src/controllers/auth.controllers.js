@@ -4,7 +4,8 @@ import { cookieOptions } from '../config/config.js';
 export const register_user = async (req, res, next) => {
     try {
         const {name, email, password} = req.body
-        const token = await registerUser(name, email, password);
+        const {token, user} = await registerUser(name, email, password);
+        req.user = user; // Store the user in the request object for further use
         res.cookie("accessToken", token, cookieOptions);
         res.status(200).json({"message": "Login success!"});   
     } catch (err) {
@@ -15,7 +16,8 @@ export const register_user = async (req, res, next) => {
 export const login_user = async (req, res, next) => {
     try {
         const {email, password} = req.body
-        const token = await loginUser(email, password);
+        const {token, user} = await loginUser(email, password);
+        req.user = user;
         res.cookie("accessToken", token, cookieOptions);
         res.status(200).json({"message": "Login success!"});   
     } catch (err) {
