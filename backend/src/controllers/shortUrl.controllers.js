@@ -1,5 +1,6 @@
 import { createShortUrlWithUser, createShortUrlWithoutUser } from "../services/shortUrl.js";
 import { getLongUrl } from "../dao/shortUrl.js";
+import wrapAsync from "../utils/tryCatchWrapper.js";
 
 export const createShortUrl = async (req, res, next) => {
 	try {	
@@ -27,3 +28,9 @@ export const redirectFromShortUrl = async (req, res, next) => {
 		next(err);
 	}
 }
+
+export const createCustomShortUrl = wrapAsync(async (req,res)=>{
+    const {url,slug} = req.body
+    const shortUrl = await createShortUrlWithoutUser(url,customUrl)
+    res.status(200).json({shortUrl : process.env.APP_URL + shortUrl})
+})
