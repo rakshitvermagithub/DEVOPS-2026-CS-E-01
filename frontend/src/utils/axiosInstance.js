@@ -1,9 +1,10 @@
-import axios from "axios";
+import axios from "axios"
 
 const axiosInstance = axios.create({
-    baseURL: "http://localhost:3500",
-    timeout: 10000,
-});
+    baseURL:"http://localhost:3000",
+    timeout:10000, //10s
+    withCredentials:true
+})
 
 // Response interceptor
 axiosInstance.interceptors.response.use(
@@ -55,5 +56,4 @@ axiosInstance.interceptors.response.use(
         });
     }
 );
-
-export default axiosInstance;
+export default axiosInstance
