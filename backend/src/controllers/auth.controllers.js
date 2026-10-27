@@ -7,7 +7,7 @@ export const register_user = async (req, res, next) => {
         const {token, user} = await registerUser(name, email, password);
         req.user = user; // Store the user in the request object for further use
         res.cookie("accessToken", token, cookieOptions);
-        res.status(200).json({"message": "Login success!"});   
+        res.status(200).json({"message": "User registered successful!"});   
     } catch (err) {
         next(err);
     }
