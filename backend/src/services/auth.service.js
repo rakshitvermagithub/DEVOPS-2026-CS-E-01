@@ -6,7 +6,7 @@ export const registerUser = async (name, email, password) => {
     if(user) throw new Error("User already exists");
 
     const newUser = createUser(name, email, password);
-    const token = await signToken({userId: user._id});
+    const token = await signToken({id: newUser._id});
     return {token, user: newUser};
 }
 
