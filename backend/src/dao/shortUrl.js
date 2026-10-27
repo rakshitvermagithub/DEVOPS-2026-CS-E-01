@@ -5,10 +5,8 @@ export const saveShortUrlSchema = async (shortUrl, longUrl, userId) => {
         const newUrl = new urlSchema ({
             full_url: longUrl,
             short_url: shortUrl,
+            user: userId,
         });
-        if (userId) {
-            newUrl.user_id = userId;
-        }
 	    await newUrl.save();
     } catch(err) {
         throw new Error(err)
