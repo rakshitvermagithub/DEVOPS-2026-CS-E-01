@@ -3,7 +3,7 @@ import {nanoid} from "nanoid"
 import dotenv from 'dotenv'
 dotenv.config('./.env')
 import connectDB from './src/config/mongo.config.js'
-import shortUrlRoute from "./src/routes/short_url.js";
+import shortUrlRoute from "./src/routes/short_url.route.js";
 import authRoutes from "./src/routes/auth.routes.js";
 import { redirectFromShortUrl } from './src/controllers/shortUrl.controllers.js'
 import { errorHandler } from './src/utils/errorHanlder.js'
