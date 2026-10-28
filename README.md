@@ -46,3 +46,24 @@ Stop the stack with:
 ```bash
 docker compose down
 ```
+
+## Deploy for free on Render
+
+This repository includes a Render Blueprint in `render.yaml` that creates
+separate backend and frontend services. It uses MongoDB Atlas for the database.
+
+1. Push the repository to GitHub.
+2. Create a MongoDB Atlas free-tier cluster and copy its connection string.
+3. In Render, choose **New → Blueprint** and select this repository.
+4. Review the two services and deploy them.
+5. When prompted, set these secret environment variables for the backend:
+   - `DATABASE_URI`: your MongoDB Atlas connection string
+   - `JWT_SECRET`: a long random secret
+6. Confirm the backend health check at:
+   `https://devops-url-shortener-backend.onrender.com/health`
+7. Open the frontend at:
+   `https://devops-url-shortener-frontend.onrender.com`
+
+If Render assigns different service URLs, update `FRONTEND_URL`, `APP_URL`,
+and `VITE_API_URL` in the corresponding service settings, then redeploy the
+frontend. `VITE_API_URL` is embedded during the frontend build.
