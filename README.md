@@ -67,3 +67,29 @@ separate backend and frontend services. It uses MongoDB Atlas for the database.
 If Render assigns different service URLs, update `FRONTEND_URL`, `APP_URL`,
 and `VITE_API_URL` in the corresponding service settings, then redeploy the
 frontend. `VITE_API_URL` is embedded during the frontend build.
+
+## Enable Prometheus metrics
+
+The backend exposes Prometheus-compatible application and Node.js process
+metrics at `/metrics`. Before deploying the backend, add a secret Render
+environment variable:
+
+```text
+METRICS_TOKEN=<long-random-token>
+```
+
+The endpoint then requires this header:
+
+```text
+Authorization: Bearer <same-token>
+```
+
+Verify the endpoint after deployment:
+
+```bash
+curl -H "Authorization: Bearer <same-token>" \
+  https://devops-url-shortener-backend.onrender.com/metrics
+```
+
+Do not commit `METRICS_TOKEN` to the repository. A Prometheus-compatible
+collector can scrape this endpoint and forward the metrics to Grafana Cloud.
