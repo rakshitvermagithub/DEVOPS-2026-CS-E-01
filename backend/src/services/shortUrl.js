@@ -1,5 +1,6 @@
 import { generateId } from "../utils/helper.js";
 import { saveShortUrlSchema } from "../dao/shortUrl.js";
+import { getCustomShortUrl } from "../dao/shortUrl.js";
 
 export const createShortUrlWithoutUser = async (longUrl) => { 
     const shortUrl = generateId(7);
@@ -13,6 +14,7 @@ export const createShortUrlWithUser = async (longUrl, userId, slug=null) => {
     const shortUrl = slug || generateId(7);
     const exists = await getCustomShortUrl(shortUrl);
     if (exists) throw new Error("Custom short URL already exists");
+    console.log("UserId in createShortUrlWithUser: ", userId);
 	await saveShortUrlSchema(shortUrl, longUrl, userId);
     return shortUrl;
 }

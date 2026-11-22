@@ -3,8 +3,9 @@ import { getLongUrl } from "../dao/shortUrl.js";
 
 export const createShortUrl = async (req, res, next) => {
 	try {	
-		const data = req.body;
+		const data = req.body; // {url: "https://www.google.com", slug: "google"}
 		let shortUrl
+		console.log("User in createShortUrl: ", req.user);
 		// If user is logged in
 		if(req.user){
 			shortUrl = await createShortUrlWithUser(data.url,req.user._id,data.slug)
@@ -20,9 +21,9 @@ export const createShortUrl = async (req, res, next) => {
 export const redirectFromShortUrl = async (req, res, next) => {
 	try {
 		const { id } = req.params;
-		const { full_url } = await getLongUrl(id);
-		if (!full_url) throw new Error("Short URL not found")
-		res.redirect(full_url);
+		const url = await getLongUrl(id);
+		if (!url) throw new Error("Short URL not found")
+		res.redirect(url.full_url);
 	} catch(err) {
 		next(err);
 	}
